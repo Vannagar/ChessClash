@@ -13,7 +13,7 @@ var pas=0
 var color= "#000000"
 var brd
 
-//const sock=io()
+const sock=io()
 document.addEventListener( 'DOMContentLoaded', _ =>
 {
     create((new Chess()).fen())
