@@ -1,18 +1,29 @@
 const http= require("http")
 const express=require("express")
-const socketio=require("socket.io")
+const socket=require("socket.io")
 
 const app = express()
 app.use(express.static("client"))
 const server= http.createServer(app)
 
-const io= socketio(server)
+const io= socket(server)
+
+const connections=[null,null]
 
 io.on('connection', (sock)=>{
-    console.log("There's been a connection")
+    let playerIndex=-1
+    for(const i in connections)
+    {
+        if(connections[i]==null)
+        {
+            playerIndex=i
+            connections[i]=i
+            break
+        }
+    }
+    //io.emit("playernum",playerIndex)
 })
 
-server.listen(8080, function () {
-    console.log("Listening on port 8080");
-})
+server.listen(8080, ()=>console.log("server on 8080"))
+
 

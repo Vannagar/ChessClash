@@ -1,5 +1,5 @@
 var selected="z"
-var uwhite=true;
+var uwhite=0;
 var tq=0
 var tr=0
 var tb=0
@@ -14,6 +14,12 @@ var color= "#000000"
 var brd
 
 const sock=io()
+
+sock.on("playernum",num=>{
+    console.log(num)
+    uwhite=parseInt(num)
+})
+
 document.addEventListener( 'DOMContentLoaded', _ =>
 {
     create((new Chess()).fen())
@@ -66,7 +72,7 @@ function create(vals) {
         vals = vals.substring(1)
         i--
     }
-    if (uwhite)
+    if (uwhite==0)
     {
         document.getElementById("boarded").style.flexWrap="wrap"
     }
@@ -78,7 +84,8 @@ function create(vals) {
             document.getElementById("row"+i).style.flexWrap="wrap-reverse"
         }
     }
-    if(uwhite)
+    if(uwhite==0
+    )
     {
         document.getElementById("a").src="./img/wqueen.png"
         document.getElementById("b").src="./img/wrook.png"
@@ -128,7 +135,7 @@ function create(vals) {
 
 function clicked(id)
 {
-    if(uwhite^brd.turn()=="w")
+    if(uwhite==0^brd.turn()=="w"||brd.in_checkmate()||brd.in_check()||uwhite==-1)
     {
         return
     }
@@ -142,7 +149,7 @@ function clicked(id)
     {
         temp=brd
         col='b'
-        if(uwhite)
+        if(uwhite==0)
         {
             col='w'
         }
@@ -191,7 +198,7 @@ function clicked(id)
             pas--
         }
         var tokens = brd.fen().split(' ');
-        if(uwhite)
+        if(uwhite==0)
         {
             tokens[1]="b"
         }
@@ -253,7 +260,7 @@ function clicked(id)
     {
         document.getElementById("hi").textContent="Draw!"
     }
-    if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite)||(brd.turn()=="b")&&!uwhite))
+    if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite==0)||(brd.turn()=="b")&&!(uwhite==0)))
     {
         document.getElementById("hi").textContent="You Lose!"
     }
@@ -265,7 +272,7 @@ function clicked(id)
 
 function clicker(id)
 {
-    if(uwhite^brd.turn()=='w')
+    if((uwhite==0^brd.turn()=='w')||uwhite==-1)
     {return}
     if(selected==id)
     {
