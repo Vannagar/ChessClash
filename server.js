@@ -10,6 +10,9 @@ const io= socket(server)
 
 const connections=[null,null]
 
+server.listen(8080, ()=>console.log("server on 8080"))
+
+
 io.on('connection', (sock)=>{
     let playerIndex=-1
     for(const i in connections)
@@ -21,9 +24,22 @@ io.on('connection', (sock)=>{
             break
         }
     }
-    //io.emit("playernum",playerIndex)
-})
+    io.emit("playernum",playerIndex)
 
-server.listen(8080, ()=>console.log("server on 8080"))
+    sock.on('disconnect',()=>{
+        if(playerIndex>-1)
+        {
+            connections[playerIndex]=null
+        }
+    })
+
+    sock.on('nrd', (vals) => {
+        io.emit('moved', vals.ay)
+    })
+
+    sock.on('yo',(bro)=>{
+        io.emit('yik',bro)
+    })
+})
 
 

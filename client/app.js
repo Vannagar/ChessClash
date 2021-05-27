@@ -1,5 +1,5 @@
 var selected="z"
-var uwhite=0;
+var uwhite=-1;
 var tq=0
 var tr=0
 var tb=0
@@ -11,21 +11,50 @@ var bis=0
 var kns=0
 var pas=0
 var color= "#000000"
-var brd
+var brd= new Chess()
 
 const sock=io()
 
 sock.on("playernum",num=>{
-    console.log(num)
-    uwhite=parseInt(num)
+    if(uwhite==-1)
+    {
+        uwhite=parseInt(num)
+    }
+    mreate(brd.fen())
+})
+
+sock.on("yik",vase=>{
+    if(1-vase.col==uwhite)
+    {
+        tq=vase.qus
+        tr=vase.ros
+        tb=vase.bis
+        tn=vase.kns
+        tp=vase.pas
+        qus=vase.tq
+        ros=vase.tr
+        bis=vase.tb
+        kns=vase.tn
+        pas=vase.tp
+    }
+})
+
+function create(vals)
+{
+    sock.emit("yo",{"col":uwhite,"tq":tq,"tr":tr,"tb":tb,"tn":tn,"tp":tp,"qus":qus,"ros":ros,"bis":bis,"kns":kns,"pas":pas})
+    sock.emit("nrd",{"ay":vals})
+}
+
+sock.on("moved",vals=>{
+    brd=new Chess(vals)
+    mreate(vals)
 })
 
 document.addEventListener( 'DOMContentLoaded', _ =>
 {
-    create((new Chess()).fen())
-    brd=new Chess()
+    create(brd.fen())
 })
-function create(vals) {
+function mreate(vals) {
     for (let j = 0; j < 7; j++) {
         vals = vals.replace('/', '');
     }
@@ -131,11 +160,25 @@ function create(vals) {
     {
         document.getElementById("e").style.opacity=1
     }
+
+    if(brd.in_stalemate()||brd.in_threefold_repetition()||brd.insufficient_material())
+    {
+        document.getElementById("hi").textContent="Draw!"
+    }
+    if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite==0)||(brd.turn()=="b")&&!(uwhite==0)))
+    {
+        document.getElementById("hi").textContent="You Lose!"
+    }
+    else if(brd.in_checkmate())
+    {
+        document.getElementById("hi").textContent="You Win!"
+    }
 }
 
 function clicked(id)
 {
-    if(uwhite==0^brd.turn()=="w"||brd.in_checkmate()||brd.in_check()||uwhite==-1)
+    console.log(brd.turn())
+    if(uwhite==0^brd.turn()=="w"||uwhite==-1)
     {
         return
     }
@@ -256,23 +299,11 @@ function clicked(id)
             }
         }
     }
-    if(brd.in_stalemate()||brd.in_threefold_repetition()||brd.insufficient_material())
-    {
-        document.getElementById("hi").textContent="Draw!"
-    }
-    if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite==0)||(brd.turn()=="b")&&!(uwhite==0)))
-    {
-        document.getElementById("hi").textContent="You Lose!"
-    }
-    else if(brd.in_checkmate())
-    {
-        document.getElementById("hi").textContent="You Win!"
-    }
 }
 
 function clicker(id)
 {
-    if((uwhite==0^brd.turn()=='w')||uwhite==-1)
+    if((uwhite==0^brd.turn()=='w')||uwhite==-1||brd.in_checkmate()||brd.in_check())
     {return}
     if(selected==id)
     {
