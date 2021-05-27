@@ -10,7 +10,7 @@ const io= socket(server)
 
 const connections=[null,null]
 
-server.listen(8080, ()=>console.log("server on 8080"))
+server.listen(process.env.PORT||8080, ()=>console.log("server on 8080"))
 
 
 io.on('connection', (sock)=>{
