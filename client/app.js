@@ -212,9 +212,13 @@ function clicked(id)
         {
             temp.put({ type: 'n', color: col }, id)
         }
-        else if(pas>0)
+        else if(pas>0&&id.charAt(1)!="1"&&id.charAt(1)!="8")
         {
             temp.put({ type: 'p', color: col }, id)
+        }
+        else if(pas>0&&(id.charAt(1)=="1"||id.charAt(1)=="8"))
+        {
+            return
         }
         if(temp.in_check())
         {
