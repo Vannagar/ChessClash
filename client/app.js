@@ -20,7 +20,10 @@ sock.on("playernum",num=>{
     {
         uwhite=parseInt(num)
     }
-    mreate(brd.fen())
+    if(num!=-1)
+    {
+        mreate(brd.fen())
+    }
 })
 
 sock.on("yik",vase=>{
