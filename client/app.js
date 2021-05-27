@@ -44,6 +44,11 @@ sock.on("yik",vase=>{
 
 function create(vals)
 {
+    qus=Math.round(qus)
+    ros=Math.round(ros)
+    bis=Math.round(bis)
+    kns=Math.round(kns)
+    pas=Math.round(pas)
     sock.emit("yo",{"col":uwhite,"tq":tq,"tr":tr,"tb":tb,"tn":tn,"tp":tp,"qus":qus,"ros":ros,"bis":bis,"kns":kns,"pas":pas})
     sock.emit("nrd",{"ay":vals})
 }
@@ -280,23 +285,23 @@ function clicked(id)
                 }
                 else if(brd.get(id).type=="q")
                 {
-                    tq++
+                    tq+=0.6
                 }
                 else if(brd.get(id).type=="r")
                 {
-                    tr++
+                    tr+=0.6
                 }
                 else if(brd.get(id).type=="b")
                 {
-                    tb++
+                    tb+=0.6
                 }
                 else if(brd.get(id).type=="n")
                 {
-                    tn++
+                    tn+=0.6
                 }
                 else if(brd.get(id).type=="p")
                 {
-                    tp++
+                    tp+=0.6
                 }
                 brd.move(selected+""+id,{ sloppy: true })
                 document.getElementById(selected).style.backgroundColor=color
@@ -324,7 +329,7 @@ function clicker(id)
     }
     if(id=="a")
     {
-        if(qus>0)
+        if(qus>=1)
         {
             color=document.getElementById("a").style.backgroundColor
             document.getElementById("a").style.backgroundColor="#003355"
@@ -333,7 +338,7 @@ function clicker(id)
     }
     else if (id=="b")
     {
-        if(ros>0)
+        if(ros>=1)
         {
             color=document.getElementById("b").style.backgroundColor
             document.getElementById("b").style.backgroundColor="#003355"
@@ -342,7 +347,7 @@ function clicker(id)
     }
     else if (id=="c")
     {
-        if(bis>0)
+        if(bis>=1)
         {
             color=document.getElementById("c").style.backgroundColor
             document.getElementById("c").style.backgroundColor="#003355"
@@ -351,7 +356,7 @@ function clicker(id)
     }
     else if (id=="d")
     {
-        if(kns>0)
+        if(kns>=1)
         {
             color=document.getElementById("d").style.backgroundColor
             document.getElementById("d").style.backgroundColor="#003355"
@@ -360,7 +365,7 @@ function clicker(id)
     }
     else
     {
-        if(pas>0)
+        if(pas>=1)
         {
             color=document.getElementById("e").style.backgroundColor
             document.getElementById("e").style.backgroundColor="#003355"
