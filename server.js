@@ -30,6 +30,7 @@ io.on('connection', (sock)=>{
         if(playerIndex>-1)
         {
             connections[playerIndex]=null
+            io.emit('yik',{"col":playerIndex,"tq":0,"tr":0,"tb":0,"tn":0,"tp":0,"qus":0,"ros":0,"bis":0,"kns":0,"pas":0})
         }
     })
 
