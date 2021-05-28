@@ -8,34 +8,40 @@ const server= http.createServer(app)
 
 const io= socket(server)
 
-const connections=[null,null]
+const connections=[]
+const disco=[]
 
 server.listen(process.env.PORT||8080, ()=>console.log("server on 8080"))
 
 
 io.on('connection', (sock)=>{
-    let playerIndex=-1
-    for(const i in connections)
+    //console.log(connections)
+    //console.log(disco)
+    if(disco.length>0)
     {
-        if(connections[i]==null)
-        {
-            playerIndex=i
-            connections[i]=i
-            break
-        }
+        connections.push(disco.shift())
     }
-    io.emit("playernum",playerIndex)
+    else if(connections.length==0)
+    {
+        connections.push(0)
+    }
+    else
+    {
+        connections.sort()
+        connections.push(connections[connections.length-1]+1)
+    }
+    var playerIndex=connections[connections.length-1]
+    io.emit("playernum",{"num":playerIndex%2,"gam":Math.floor(playerIndex/2)})
 
     sock.on('disconnect',()=>{
-        if(playerIndex>-1)
-        {
-            connections[playerIndex]=null
-            io.emit('yik',{"col":playerIndex,"tq":0,"tr":0,"tb":0,"tn":0,"tp":0,"qus":0,"ros":0,"bis":0,"kns":0,"pas":0})
-        }
+        connections.splice(connections.indexOf(playerIndex),1)
+        disco.push(playerIndex)
+        disco.sort()
+        io.emit('yik',{"col":playerIndex%2,"gam":playerIndex/2,"tq":0,"tr":0,"tb":0,"tn":0,"tp":0,"qus":0,"ros":0,"bis":0,"kns":0,"pas":0})
     })
 
     sock.on('nrd', (vals) => {
-        io.emit('moved', vals.ay)
+        io.emit('moved', vals)
     })
 
     sock.on('yo',(bro)=>{

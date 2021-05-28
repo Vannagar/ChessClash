@@ -10,24 +10,28 @@ var ros=0
 var bis=0
 var kns=0
 var pas=0
+var gamnum=-1
 var color= "#000000"
 var brd= new Chess()
 
 const sock=io()
 
-sock.on("playernum",num=>{
+sock.on("playernum",nom=>{
+    num=nom.num
     if(uwhite==-1)
     {
         uwhite=parseInt(num)
+        gamnum=nom.gam
+
     }
     if(num!=-1)
     {
-        mreate(brd.fen())
+        create(brd.fen())
     }
 })
 
 sock.on("yik",vase=>{
-    if(1-vase.col==uwhite)
+    if(1-vase.col==uwhite&&vase.gam==gamnum)
     {
         tq=vase.qus
         tr=vase.ros
@@ -49,13 +53,17 @@ function create(vals)
     bis=Math.round(bis)
     kns=Math.round(kns)
     pas=Math.round(pas)
-    sock.emit("yo",{"col":uwhite,"tq":tq,"tr":tr,"tb":tb,"tn":tn,"tp":tp,"qus":qus,"ros":ros,"bis":bis,"kns":kns,"pas":pas})
-    sock.emit("nrd",{"ay":vals})
+    sock.emit("yo",{"gam":gamnum,"col":uwhite,"tq":tq,"tr":tr,"tb":tb,"tn":tn,"tp":tp,"qus":qus,"ros":ros,"bis":bis,"kns":kns,"pas":pas})
+    sock.emit("nrd",{"gam":gamnum,"ay":vals})
 }
 
 sock.on("moved",vals=>{
-    brd=new Chess(vals)
-    mreate(vals)
+    console.log(gamnum+" "+vals.gam)
+    if(vals.gam==gamnum)
+    {
+        brd=new Chess(vals.ay)
+        mreate(vals.ay)
+    }
 })
 
 document.addEventListener( 'DOMContentLoaded', _ =>
@@ -185,8 +193,7 @@ function mreate(vals) {
 
 function clicked(id)
 {
-    console.log(brd.turn())
-    if(uwhite==0^brd.turn()=="w"||uwhite==-1)
+    if(uwhite==0^brd.turn()=="w")
     {
         return
     }
