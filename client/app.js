@@ -181,13 +181,17 @@ function mreate(vals) {
     {
         document.getElementById("hi").textContent="Draw!"
     }
-    if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite==0)||(brd.turn()=="b")&&!(uwhite==0)))
+    else if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite==0)||(brd.turn()=="b")&&!(uwhite==0)))
     {
         document.getElementById("hi").textContent="You Lose!"
     }
     else if(brd.in_checkmate())
     {
         document.getElementById("hi").textContent="You Win!"
+    }
+    else
+    {
+        document.getElementById("hi").textContent=""
     }
 }
 
