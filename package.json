@@ -1,5 +1,5 @@
 {
-  "name": "ChessClash",
+  "name": "chessclash",
   "version": "1.0.0",
   "description": "Brand New Chess Variant!",
   "main": "server.js",
