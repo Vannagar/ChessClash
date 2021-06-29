@@ -1,5 +1,5 @@
 var selected="z"
-var uwhite=-1;
+var uwhite=-2;
 var tq=0
 var tr=0
 var tb=0
@@ -10,28 +10,26 @@ var ros=0
 var bis=0
 var kns=0
 var pas=0
-var gamnum=-1
+var gam=-1
 var color= "#000000"
 var brd= new Chess()
 
 const sock=io()
 
+sock.emit("room",{gams:document.cookie})
+
 sock.on("playernum",nom=>{
     num=nom.num
-    if(uwhite==-1)
+    if(uwhite==-2)
     {
         uwhite=parseInt(num)
-        gamnum=nom.gam
-
+        gam=nom.gam
     }
-    if(num!=-1)
-    {
-        create(brd.fen())
-    }
+    sock.emit("ask",{gams:gam})
 })
 
 sock.on("yik",vase=>{
-    if(1-vase.col==uwhite&&vase.gam==gamnum)
+    if((1-vase.col==uwhite||(1-vase.col==0&&uwhite==-1))&&vase.gam==gam)
     {
         tq=vase.qus
         tr=vase.ros
@@ -53,16 +51,22 @@ function create(vals)
     bis=Math.round(bis)
     kns=Math.round(kns)
     pas=Math.round(pas)
-    sock.emit("yo",{"gam":gamnum,"col":uwhite,"tq":tq,"tr":tr,"tb":tb,"tn":tn,"tp":tp,"qus":qus,"ros":ros,"bis":bis,"kns":kns,"pas":pas})
-    sock.emit("nrd",{"gam":gamnum,"ay":vals})
+    sock.emit("yo",{"gam":gam,"col":uwhite,"tq":tq,"tr":tr,"tb":tb,"tn":tn,"tp":tp,"qus":qus,"ros":ros,"bis":bis,"kns":kns,"pas":pas})
+    sock.emit("nrd",{"gam":gam,"ay":vals})
 }
 
 sock.on("moved",vals=>{
-    console.log(gamnum+" "+vals.gam)
-    if(vals.gam==gamnum)
+    if(vals.gam==gam)
     {
         brd=new Chess(vals.ay)
         mreate(vals.ay)
+    }
+})
+
+sock.on("help",way=>{
+    if(way.gamsy==gam)
+    {
+        create(brd.fen())
     }
 })
 
@@ -117,7 +121,7 @@ function mreate(vals) {
         vals = vals.substring(1)
         i--
     }
-    if (uwhite==0)
+    if (uwhite<1)
     {
         document.getElementById("boarded").style.flexWrap="wrap"
     }
@@ -129,8 +133,7 @@ function mreate(vals) {
             document.getElementById("row"+i).style.flexWrap="wrap-reverse"
         }
     }
-    if(uwhite==0
-    )
+    if(uwhite<1)
     {
         document.getElementById("a").src="./img/wqueen.png"
         document.getElementById("b").src="./img/wrook.png"
@@ -177,7 +180,11 @@ function mreate(vals) {
         document.getElementById("e").style.opacity=1
     }
 
-    if(brd.in_stalemate()||brd.in_threefold_repetition()||brd.insufficient_material())
+    if((brd.in_checkmate()||brd.in_draw())&&uwhite==-1)
+    {
+        document.getElementById("hi").textContent="Game Over!"
+    }
+    else if(brd.in_stalemate()||brd.in_threefold_repetition()||brd.insufficient_material())
     {
         document.getElementById("hi").textContent="Draw!"
     }
@@ -197,7 +204,7 @@ function mreate(vals) {
 
 function clicked(id)
 {
-    if(uwhite==0^brd.turn()=="w")
+    if((uwhite==0^brd.turn()=="w")||uwhite==-1)
     {
         return
     }
@@ -328,6 +335,8 @@ function clicker(id)
 {
     if((uwhite==0^brd.turn()=='w')||uwhite==-1||brd.in_checkmate()||brd.in_check())
     {return}
+    if(uwhite==-1)
+    {return}
     if(selected==id)
     {
         selected="z"
@@ -383,4 +392,9 @@ function clicker(id)
             selected=id
         }
     }
+}
+
+function bril()
+{
+    window.location="index.html"
 }
