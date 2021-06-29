@@ -82,29 +82,29 @@ function mreate(vals) {
     for (let i = 0; i < boxes.length; i++) {
         var num = 0
         var image
-        if (vals.charAt(i) == "P") {
+        if (vals.charAt(i) === "P") {
             image = "url('img/wpawn.png')"
-        } else if (vals.charAt(i) == "p") {
+        } else if (vals.charAt(i) === "p") {
             image = "url('img/bpawn.png')"
-        } else if (vals.charAt(i) == "R") {
+        } else if (vals.charAt(i) === "R") {
             image = "url('img/wrook.png')"
-        } else if (vals.charAt(i) == "r") {
+        } else if (vals.charAt(i) === "r") {
             image = "url('img/brook.png')"
-        } else if (vals.charAt(i) == "N") {
+        } else if (vals.charAt(i) === "N") {
             image = "url('img/wknight.png')"
-        } else if (vals.charAt(i) == "n") {
+        } else if (vals.charAt(i) === "n") {
             image = "url('img/bknight.png')"
-        } else if (vals.charAt(i) == "B") {
+        } else if (vals.charAt(i) === "B") {
             image = "url('img/wbishop.png')"
-        } else if (vals.charAt(i) == "b") {
+        } else if (vals.charAt(i) === "b") {
             image = "url('img/bbishop.png')"
-        } else if (vals.charAt(i) == "K") {
+        } else if (vals.charAt(i) === "K") {
             image = "url('img/wking.png')"
-        } else if (vals.charAt(i) == "k") {
+        } else if (vals.charAt(i) === "k") {
             image = "url('img/bking.png')"
-        } else if (vals.charAt(i) == "Q") {
+        } else if (vals.charAt(i) === "Q") {
             image = "url('img/wqueen.png')"
-        } else if (vals.charAt(i) == "q") {
+        } else if (vals.charAt(i) === "q") {
             image = "url('img/bqueen.png')"
         } else {
             num = parseInt(vals.charAt(i), 10) - 1
@@ -180,7 +180,7 @@ function mreate(vals) {
         document.getElementById("e").style.opacity=1
     }
 
-    if((brd.in_checkmate()||brd.in_draw())&&uwhite==-1)
+    if((brd.in_checkmate()||brd.in_draw())&&uwhite===-1)
     {
         document.getElementById("hi").textContent="Game Over!"
     }
@@ -188,7 +188,7 @@ function mreate(vals) {
     {
         document.getElementById("hi").textContent="Draw!"
     }
-    else if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite==0)||(brd.turn()=="b")&&!(uwhite==0)))
+    else if(brd.in_checkmate()&&((brd.turn()==="w"&&uwhite===0)||(brd.turn()==="b")&&!(uwhite===0)))
     {
         document.getElementById("hi").textContent="You Lose!"
     }
@@ -204,45 +204,45 @@ function mreate(vals) {
 
 function clicked(id)
 {
-    if((uwhite==0^brd.turn()=="w")||uwhite==-1)
+    if((uwhite===0^brd.turn()==="w")||uwhite===-1)
     {
         return
     }
-    if(selected=="z"&&brd.get(id)!=null&&brd.moves({square:id}).length>0)
+    if(selected==="z"&&brd.get(id)!=null&&brd.moves({square:id}).length>0)
     {
         selected=id
         color=document.getElementById(id).style.backgroundColor
         document.getElementById(id).style.backgroundColor="#003355"
     }
-    else if(selected.length==1&&selected!="z"&&brd.get(id)==null&&(selected!="e"||(id.charAt(2)!="1"&&id.charAt(2)!="8")))
+    else if(selected.length===1&&selected!=="z"&&brd.get(id)==null&&(selected!=="e"||(id.charAt(2)!=="1"&&id.charAt(2)!=="8")))
     {
         temp=brd
         col='b'
-        if(uwhite==0)
+        if(uwhite===0)
         {
             col='w'
         }
-        if(selected=="a"&&qus>0)
+        if(selected==="a"&&qus>0)
         {
             temp.put({ type: 'q', color: col }, id)
         }
-        else if(selected=="b"&&ros>0)
+        else if(selected==="b"&&ros>0)
         {
             temp.put({ type: 'r', color: col }, id)
         }
-        else if(selected=="c"&&bis>0)
+        else if(selected==="c"&&bis>0)
         {
             temp.put({ type: 'b', color: col }, id)
         }
-        else if(selected=="d"&&kns>0)
+        else if(selected==="d"&&kns>0)
         {
             temp.put({ type: 'n', color: col }, id)
         }
-        else if(pas>0&&id.charAt(1)!="1"&&id.charAt(1)!="8")
+        else if(pas>0&&id.charAt(1)!=="1"&&id.charAt(1)!=="8")
         {
             temp.put({ type: 'p', color: col }, id)
         }
-        else if(pas>0&&(id.charAt(1)=="1"||id.charAt(1)=="8"))
+        else if(pas>0&&(id.charAt(1)==="1"||id.charAt(1)==="8"))
         {
             return
         }
@@ -250,19 +250,19 @@ function clicked(id)
         {
             return
         }
-        if(selected=="a")
+        if(selected==="a")
         {
             qus--
         }
-        else if(selected=="b")
+        else if(selected==="b")
         {
             ros--
         }
-        else if(selected=="c")
+        else if(selected==="c")
         {
             bis--
         }
-        else if(selected=="d")
+        else if(selected==="d")
         {
             kns--
         }
@@ -271,7 +271,7 @@ function clicked(id)
             pas--
         }
         var tokens = brd.fen().split(' ');
-        if(uwhite==0)
+        if(uwhite===0)
         {
             tokens[1]="b"
         }
@@ -285,39 +285,39 @@ function clicked(id)
         document.getElementById(selected).style.backgroundColor=color
         selected="z"
     }
-    else if(selected==id)
+    else if(selected===id)
     {
         selected="z"
         str="ace"
         document.getElementById(id).style.backgroundColor=color
     }
-    else if(selected!="z")
+    else if(selected!=="z")
     {
         for(let i=0;i<brd.moves({square:selected}).length;i++)
         {
-            if(brd.moves({square:selected,verbose: true })[i].to==id)
+            if(brd.moves({square:selected,verbose: true })[i].to===id)
             {
                 if(brd.get(id)==null)
                 {
 
                 }
-                else if(brd.get(id).type=="q")
+                else if(brd.get(id).type==="q")
                 {
                     tq+=0.6
                 }
-                else if(brd.get(id).type=="r")
+                else if(brd.get(id).type==="r")
                 {
                     tr+=0.6
                 }
-                else if(brd.get(id).type=="b")
+                else if(brd.get(id).type==="b")
                 {
                     tb+=0.6
                 }
-                else if(brd.get(id).type=="n")
+                else if(brd.get(id).type==="n")
                 {
                     tn+=0.6
                 }
-                else if(brd.get(id).type=="p")
+                else if(brd.get(id).type==="p")
                 {
                     tp+=0.6
                 }
@@ -333,21 +333,21 @@ function clicked(id)
 
 function clicker(id)
 {
-    if((uwhite==0^brd.turn()=='w')||uwhite==-1||brd.in_checkmate()||brd.in_check())
+    if((uwhite===0^brd.turn()==='w')||uwhite===-1||brd.in_checkmate()||brd.in_check())
     {return}
-    if(uwhite==-1)
+    if(uwhite===-1)
     {return}
-    if(selected==id)
+    if(selected===id)
     {
         selected="z"
         document.getElementById(id).style.backgroundColor=color
         return
     }
-    else if(selected!="z")
+    else if(selected!=="z")
     {
         return
     }
-    if(id=="a")
+    if(id==="a")
     {
         if(qus>=1)
         {
@@ -356,7 +356,7 @@ function clicker(id)
             selected=id
         }
     }
-    else if (id=="b")
+    else if (id==="b")
     {
         if(ros>=1)
         {
@@ -365,7 +365,7 @@ function clicker(id)
             selected=id
         }
     }
-    else if (id=="c")
+    else if (id==="c")
     {
         if(bis>=1)
         {
@@ -374,7 +374,7 @@ function clicker(id)
             selected=id
         }
     }
-    else if (id=="d")
+    else if (id==="d")
     {
         if(kns>=1)
         {

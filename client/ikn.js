@@ -11,7 +11,7 @@ sock.emit("room",{gams:document.cookie})
 
 sock.on("playernum",nom=>{
     num=nom.num
-    if(uwhite==-2)
+    if(uwhite===-2)
     {
         uwhite=parseInt(num)
         gam=nom.gam
@@ -26,7 +26,7 @@ function create(vals)
 }
 
 sock.on("moved",vals=>{
-    if(vals.gam==gam)
+    if(vals.gam===gam)
     {
         brd=new Chess(vals.ay)
         mreate(vals.ay)
@@ -34,7 +34,7 @@ sock.on("moved",vals=>{
 })
 
 sock.on("help",way=>{
-    if(way.gamsy==gam)
+    if(way.gamsy===gam)
     {
         create(brd.fen())
     }
@@ -52,29 +52,29 @@ function mreate(vals) {
     for (let i = 0; i < boxes.length; i++) {
         var num = 0
         var image
-        if (vals.charAt(i) == "P") {
+        if (vals.charAt(i) === "P") {
             image = "url('img/wpawn.png')"
-        } else if (vals.charAt(i) == "p") {
+        } else if (vals.charAt(i) === "p") {
             image = "url('img/bpawn.png')"
-        } else if (vals.charAt(i) == "R") {
+        } else if (vals.charAt(i) === "R") {
             image = "url('img/wrook.png')"
-        } else if (vals.charAt(i) == "r") {
+        } else if (vals.charAt(i) === "r") {
             image = "url('img/brook.png')"
-        } else if (vals.charAt(i) == "N") {
+        } else if (vals.charAt(i) === "N") {
             image = "url('img/wknight.png')"
-        } else if (vals.charAt(i) == "n") {
+        } else if (vals.charAt(i) === "n") {
             image = "url('img/bknight.png')"
-        } else if (vals.charAt(i) == "B") {
+        } else if (vals.charAt(i) === "B") {
             image = "url('img/wbishop.png')"
-        } else if (vals.charAt(i) == "b") {
+        } else if (vals.charAt(i) === "b") {
             image = "url('img/bbishop.png')"
-        } else if (vals.charAt(i) == "K") {
+        } else if (vals.charAt(i) === "K") {
             image = "url('img/wking.png')"
-        } else if (vals.charAt(i) == "k") {
+        } else if (vals.charAt(i) === "k") {
             image = "url('img/bking.png')"
-        } else if (vals.charAt(i) == "Q") {
+        } else if (vals.charAt(i) === "Q") {
             image = "url('img/wqueen.png')"
-        } else if (vals.charAt(i) == "q") {
+        } else if (vals.charAt(i) === "q") {
             image = "url('img/bqueen.png')"
         } else {
             num = parseInt(vals.charAt(i), 10) - 1
@@ -103,7 +103,7 @@ function mreate(vals) {
             document.getElementById("row"+i).style.flexWrap="wrap-reverse"
         }
     }
-    if((brd.in_checkmate()||brd.in_draw())&&uwhite==-1)
+    if((brd.in_checkmate()||brd.in_draw())&&uwhite===-1)
     {
         document.getElementById("hi").textContent="Game Over!"
     }
@@ -111,7 +111,7 @@ function mreate(vals) {
     {
         document.getElementById("hi").textContent="Draw!"
     }
-    else if(brd.in_checkmate()&&((brd.turn()=="w"&&uwhite==0)||(brd.turn()=="b")&&!(uwhite==0)))
+    else if(brd.in_checkmate()&&((brd.turn()==="w"&&uwhite===0)||(brd.turn()==="b")&&!(uwhite===0)))
     {
         document.getElementById("hi").textContent="You Lose!"
     }
@@ -126,7 +126,7 @@ function mreate(vals) {
         let col=arr[0].color
         for(let i=0;i<arr.length;i++)
         {
-            if(!(brd.get(arr[i].to).type=="n"||(brd.get(arr[i].from).type=="n"&&brd.get(arr[i].from).type!=null)))
+            if(!(brd.get(arr[i].to).type==="n"||(brd.get(arr[i].from).type==="n"&&brd.get(arr[i].from).type!=null)))
             {
                 trt=true
                 break
@@ -134,13 +134,13 @@ function mreate(vals) {
         }
         if(!trt)
         {
-            if(uwhite==-1)
+            if(uwhite===-1)
             {
                 document.getElementById("hi").textContent="Game Over!"
             }
             else if(brd.in_check())
             {
-                if((uwhite==0&&col=="w")||(uwhite==1&&col=="b"))
+                if((uwhite===0&&col==="w")||(uwhite===1&&col==="b"))
                 {
                     document.getElementById("hi").textContent="You Lose!"
                 }
@@ -163,29 +163,29 @@ function mreate(vals) {
 
 function clicked(id)
 {
-    if((uwhite==0^brd.turn()=="w")||uwhite==-1)
+    if((uwhite===0^brd.turn()==="w")||uwhite===-1)
     {
         return
     }
-    if(selected=="z"&&brd.get(id)!=null&&brd.moves({square:id}).length>0)
+    if(selected==="z"&&brd.get(id)!=null&&brd.moves({square:id}).length>0)
     {
         selected=id
         color=document.getElementById(id).style.backgroundColor
         document.getElementById(id).style.backgroundColor="#003355"
-        fn=brd.get(id).type=="n"
+        fn=brd.get(id).type==="n"
     }
-    else if(selected==id)
+    else if(selected===id)
     {
         selected="z"
         document.getElementById(id).style.backgroundColor=color
     }
-    else if(selected!="z")
+    else if(selected!=="z")
     {
         for(let i=0;i<brd.moves({square:selected}).length;i++)
         {
-            if(brd.moves({square:selected,verbose: true })[i].to==id)
+            if(brd.moves({square:selected,verbose: true })[i].to===id)
             {
-                if(brd.get(id)!=null&&(fn||brd.get(id).type=="n"))
+                if(brd.get(id)!=null&&(fn||brd.get(id).type==="n"))
                 {
                     return
                 }

@@ -1,9 +1,10 @@
 
 function funj()
 {
-    txt=document.getElementById("nam").value
-    typ=document.getElementById("cars").value
-    if(txt!="")
+    let txt = document.getElementById("nam").value
+    let typ = document.getElementById("cars").value
+
+    if(txt!=="")
     {
         document.cookie=txt+"%237%"+typ
     }
