@@ -155,15 +155,15 @@ body {
 
 .bo{
     position:fixed;
-    width:15vmin;
-    height:15vmin;
+    width:25vmin;
+    height:25vmin;
     left:10vmax;
     top:5vh;
 }
 .co{
     position:fixed;
-    width:15vmin;
-    height:15vmin;
+    width:25vmin;
+    height:25vmin;
     right:10vmax;
     top:5vh;
 }
