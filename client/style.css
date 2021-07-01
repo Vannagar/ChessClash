@@ -7,7 +7,7 @@ body {
     background: linear-gradient(to bottom right,#c0c0f0, #202060);
     margin: 0;
     padding: 0;
-    font-family: Apple Chancery, serif;
+    font-family: "Times New Roman";
 }
 
 .lo{
@@ -115,7 +115,7 @@ body {
     text-align:center;
     border-color:#000000;
     background: transparent;
-    font-family: Apple Chancery,cursive;
+    font-family: "Times New Roman";
 }
 
 .yay{
@@ -124,7 +124,7 @@ body {
     left:35vw;
     width:40vw;
     height:20vh;
-    font-size:10vh;
+    font-size:10vmin;
 }
 
 .may{
@@ -133,7 +133,7 @@ body {
     left:80vw;
     width:15vw;
     height:20vh;
-    font-size:8vh;
+    font-size:6vmin;
 }
 
 .ray{
@@ -142,7 +142,7 @@ body {
     left:5vw;
     width:25vw;
     height:20vh;
-    font-size:4vh;
+    font-size:6vmin;
 }
 
 .titl{
@@ -150,25 +150,20 @@ body {
     top:10vh;
     left:30vw;
     width:40vw;
-    font-size:15vh;
+    font-size:12vmin;
 }
 
 .bo{
     position:fixed;
-    width:15vw;
-    height:15vw;
-    left:10vw;
+    width:15vmin;
+    height:15vmin;
+    left:10vmax;
     top:5vh;
 }
 .co{
     position:fixed;
-    width:15vw;
-    height:15vw;
-    right:10vw;
+    width:15vmin;
+    height:15vmin;
+    right:10vmax;
     top:5vh;
-}
-
-@font-face {
-    font-family: Apple Chancery;
-    src: url(/res/AppleChancery-Regular.ttf);
 }
