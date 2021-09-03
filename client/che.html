@@ -1,0 +1,58 @@
+<html lang="en">
+<head>
+    <title>Chess Clash</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="che.js" defer type="application/javascript"></script>
+</head>
+<body>
+<button class="home lo">
+    <img class="home lo" src="img/logo.png" onclick="bril()"/>
+</button>
+<div id="boarded" class="board">
+    <div id="row4" class="rows">
+        <div id="a8" class="boxe black" onclick="clicked('a8')"></div>
+        <div id="b8" class="boxe white" onclick="clicked('b8')"></div>
+        <div id="c8" class="boxe black" onclick="clicked('c8')"></div>
+        <div id="d8" class="boxe white" onclick="clicked('d8')"></div>
+        <div id="e8" class="boxe black" onclick="clicked('e8')"></div>
+    </div>
+    <div id="row5" class="rows">
+        <div id="a7" class="boxe white" onclick="clicked('a7')"></div>
+        <div id="b7" class="boxe black" onclick="clicked('b7')"></div>
+        <div id="c7" class="boxe white" onclick="clicked('c7')"></div>
+        <div id="d7" class="boxe black" onclick="clicked('d7')"></div>
+        <div id="e7" class="boxe white" onclick="clicked('e7')"></div>
+    </div>
+
+    <div id="row6" class="rows">
+        <div id="a6" class="boxe black" onclick="clicked('a6')"></div>
+        <div id="b6" class="boxe white" onclick="clicked('b6')"></div>
+        <div id="c6" class="boxe black" onclick="clicked('c6')"></div>
+        <div id="d6" class="boxe white" onclick="clicked('d6')"></div>
+        <div id="e6" class="boxe black" onclick="clicked('e6')"></div>
+    </div>
+
+    <div id="row7" class="rows">
+        <div id="a5" class="boxe white" onclick="clicked('a5')"></div>
+        <div id="b5" class="boxe black" onclick="clicked('b5')"></div>
+        <div id="c5" class="boxe white" onclick="clicked('c5')"></div>
+        <div id="d5" class="boxe black" onclick="clicked('d5')"></div>
+        <div id="e5" class="boxe white" onclick="clicked('e5')"></div>
+    </div>
+
+    <div id="row8" class="rows">
+        <div id="a4" class="boxe black" onclick="clicked('a4')"></div>
+        <div id="b4" class="boxe white" onclick="clicked('b4')"></div>
+        <div id="c4" class="boxe black" onclick="clicked('c4')"></div>
+        <div id="d4" class="boxe white" onclick="clicked('d4')"></div>
+        <div id="e4" class="boxe black" onclick="clicked('e4')"></div>
+    </div>
+</div>
+
+<div id="hi" class="win sign txte"></div>
+</body>
+</html>
+

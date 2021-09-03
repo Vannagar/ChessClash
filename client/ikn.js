@@ -1,6 +1,7 @@
 var selected="z"
 var fn=false
 var uwhite=-2;
+var go=true
 var gam=-1
 var color= "#000000"
 var brd= new Chess()
@@ -16,7 +17,6 @@ sock.on("playernum",nom=>{
         uwhite=parseInt(num)
         gam=nom.gam
     }
-    console.log(gam)
     sock.emit("ask",{gams:gam})
 })
 
@@ -29,12 +29,13 @@ sock.on("moved",vals=>{
     if(vals.gam===gam)
     {
         brd=new Chess(vals.ay)
+        go=true
         mreate(vals.ay)
     }
 })
 
 sock.on("help",way=>{
-    if(way.gamsy===gam)
+    if(way.gamsy===gam&&(go||uwhite>-1))
     {
         create(brd.fen())
     }
@@ -45,6 +46,8 @@ document.addEventListener( 'DOMContentLoaded', _ =>
     create(brd.fen())
 })
 function mreate(vals) {
+    document.getElementById("hi").textContent=""
+    go=true
     for (let j = 0; j < 7; j++) {
         vals = vals.replace('/', '');
     }
@@ -106,18 +109,22 @@ function mreate(vals) {
     if((brd.in_checkmate()||brd.in_draw())&&uwhite===-1)
     {
         document.getElementById("hi").textContent="Game Over!"
+        go=false
     }
     else if(brd.in_stalemate()||brd.in_threefold_repetition()||brd.insufficient_material())
     {
         document.getElementById("hi").textContent="Draw!"
+        go=false
     }
     else if(brd.in_checkmate()&&((brd.turn()==="w"&&uwhite===0)||(brd.turn()==="b")&&!(uwhite===0)))
     {
         document.getElementById("hi").textContent="You Lose!"
+        go=false
     }
     else if(brd.in_checkmate())
     {
         document.getElementById("hi").textContent="You Win!"
+        go=false
     }
     else
     {
@@ -126,7 +133,7 @@ function mreate(vals) {
         let col=arr[0].color
         for(let i=0;i<arr.length;i++)
         {
-            if(!(brd.get(arr[i].to).type==="n"||(brd.get(arr[i].from).type==="n"&&brd.get(arr[i].from).type!=null)))
+            if(!(brd.get(arr[i].to).type==="n"||brd.get(arr[i].to).type!=null&&(brd.get(arr[i].from).type==="n")))
             {
                 trt=true
                 break
@@ -134,24 +141,28 @@ function mreate(vals) {
         }
         if(!trt)
         {
-            if(uwhite===-1)
+            if(uwhite===-1&&brd.in_check())
             {
                 document.getElementById("hi").textContent="Game Over!"
+                go=false
             }
             else if(brd.in_check())
             {
                 if((uwhite===0&&col==="w")||(uwhite===1&&col==="b"))
                 {
                     document.getElementById("hi").textContent="You Lose!"
+                    go=false
                 }
                 else
                 {
                     document.getElementById("hi").textContent="You Win!"
+                    go=false
                 }
             }
             else
             {
                 document.getElementById("hi").textContent="Draw!"
+                go=false
             }
         }
         else
@@ -163,7 +174,7 @@ function mreate(vals) {
 
 function clicked(id)
 {
-    if((uwhite===0^brd.turn()==="w")||uwhite===-1)
+    if((uwhite===0^brd.turn()==="w")||uwhite===-1||!go)
     {
         return
     }

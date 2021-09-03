@@ -4,7 +4,7 @@ body {
     height: 100vh;
     width: 100vw;
     opacity:1;
-    background: linear-gradient(to bottom right,#c0c0f0, #202060);
+    background: linear-gradient(to bottom right,#3e4345, #292960);
     margin: 0;
     padding: 0;
     font-family: "Times New Roman";
@@ -77,6 +77,12 @@ body {
     flex-flow: column wrap;
     display: flex;
 }
+.rows {
+    height: 16vh;
+    width: 80vh;
+    flex-flow: column wrap;
+    display: flex;
+}
 .box {
     background-position: center;
     background-repeat: no-repeat;
@@ -88,11 +94,32 @@ body {
     justify-content: center;
     align-items: center;
 }
+.boxe {
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 16vh;
+    height: 16vh;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .box.white {
-    background: white;
+    background: #747d81;
 }
 .box.black {
-    background: gray;
+    background: #27292a;
+}
+.boxe.black {
+    background: #27292a;
+}
+
+.boxe.white {
+    background: #747d81;
+}
+.boxe.clicked {
+    background: #008070;
 }
 
 .box.clicked {
@@ -166,4 +193,8 @@ body {
     height:25vmin;
     right:10vmax;
     top:5vh;
+}
+
+.txte{
+    color:white
 }

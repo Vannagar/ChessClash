@@ -12,6 +12,7 @@ var kns=0
 var pas=0
 var gam=-1
 var color= "#000000"
+var go=true
 var brd= new Chess()
 
 const sock=io()
@@ -64,7 +65,7 @@ sock.on("moved",vals=>{
 })
 
 sock.on("help",way=>{
-    if(way.gamsy==gam)
+    if(way.gamsy==gam&&(go||uwhite>-1))
     {
         create(brd.fen())
     }
@@ -75,6 +76,8 @@ document.addEventListener( 'DOMContentLoaded', _ =>
     create(brd.fen())
 })
 function mreate(vals) {
+    go =true
+    document.getElementById("hi").textContent=""
     for (let j = 0; j < 7; j++) {
         vals = vals.replace('/', '');
     }
@@ -154,11 +157,11 @@ function mreate(vals) {
     document.getElementById("c").style.opacity=0.5
     document.getElementById("d").style.opacity=0.5
     document.getElementById("e").style.opacity=0.5
-    document.getElementById("a").style.backgroundColor="#FFFFFF"
-    document.getElementById("b").style.backgroundColor="#808080"
-    document.getElementById("c").style.backgroundColor="#FFFFFF"
-    document.getElementById("d").style.backgroundColor="#808080"
-    document.getElementById("e").style.backgroundColor="#FFFFFF"
+    document.getElementById("a").style.backgroundColor="#747d81"
+    document.getElementById("b").style.backgroundColor="#27292a"
+    document.getElementById("c").style.backgroundColor="#747d81"
+    document.getElementById("d").style.backgroundColor="#27292a"
+    document.getElementById("e").style.backgroundColor="#747d81"
     if(qus>0)
     {
         document.getElementById("a").style.opacity=1
@@ -183,18 +186,22 @@ function mreate(vals) {
     if((brd.in_checkmate()||brd.in_draw())&&uwhite===-1)
     {
         document.getElementById("hi").textContent="Game Over!"
+        go=false
     }
     else if(brd.in_stalemate()||brd.in_threefold_repetition()||brd.insufficient_material())
     {
         document.getElementById("hi").textContent="Draw!"
+        go=false
     }
     else if(brd.in_checkmate()&&((brd.turn()==="w"&&uwhite===0)||(brd.turn()==="b")&&!(uwhite===0)))
     {
         document.getElementById("hi").textContent="You Lose!"
+        go=false
     }
     else if(brd.in_checkmate())
     {
         document.getElementById("hi").textContent="You Win!"
+        go=false
     }
     else
     {
@@ -204,7 +211,7 @@ function mreate(vals) {
 
 function clicked(id)
 {
-    if((uwhite===0^brd.turn()==="w")||uwhite===-1)
+    if((uwhite===0^brd.turn()==="w")||uwhite===-1||!go)
     {
         return
     }

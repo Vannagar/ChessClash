@@ -9,22 +9,23 @@
 <body>
 <div>
     <img class="home bo" src="img/logo.png"/>
-    <div class="st titl">Chess Clash</div>
+    <div class="st titl" ><font color="white">Chess Clash</font></div>
     <img class="home co" src="img/logo.png"/>
 </div>
 
 <div>
-<select class="st ray" name="cars" id="cars">
+<select class="st ray txte" name="cars" id="cars">
     <optgroup label="Variant">
-        <option value="res">[Resurrection]</option>
-        <option value="ikn">[Indestructible Knights]</option>
+        <option value="res" class="txte">[RES]</option>
+        <option value="ikn" class="txte">[IKN]</option>
+        <option value="che" class="txte">[CHE]</option>
     </optgroup>
 </select>
-<input class="st yay" type="text" id="nam"
+<input class="st yay txte" type="text" id="nam"
        onfocus="if(this.value==='Room ID')this.value=''"
        onblur="if(this.value==='')this.value='Room ID'"
        value="">
-<input class="st may" type="button" id="but" value="Launch" onclick="funj()">
+<input class="st may txte" type="button" id="but" value="Launch" onclick="funj()">
 </div>
 </body>
 </html>
